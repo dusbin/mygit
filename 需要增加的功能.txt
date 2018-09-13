@@ -1,1 +1,5 @@
 1.查找 object find .git/objects/ -type f |awk -F'/' '{print$(NF-1) $(NF)}' 
+
+
+
+-1.计划使用MD5值计算sha1值，用数据库代替索引
