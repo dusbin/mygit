@@ -3,7 +3,7 @@ import(
 	myfile "comm/myfile"
 )
 /*
- * 初始化创建仓库目录主入口
+ * 鍒濆鍖栧垱寤轰粨搴撶洰褰曚富鍏ュ彛
  */
 func init_repo(repo_name string){
 	root_path := myfile.GetCurrentPath()
@@ -37,12 +37,12 @@ func init_repo(repo_name string){
 	myfile.Mkdir(tags_path)
 	config_file := repo_dir + "/config"
 	myfile.CreateFile(config_file)
-	myfile.WriteStringtoFile(config_file,"[core]\n	repositoryformatversion = 0\n	filemode = false\n	bare = false\n	logallrefupdates = true\n	symlinks = false\n	ignorecase = true")
+	myfile.WriteStringtoFile(config_file,"[core]\n	repositoryformatversion = 0\n	filemode = false\n	bare = false\n	logallrefupdates = true\n	symlinks = false\n	ignorecase = true\n")
 	descruption_file := repo_dir + "/description"
 	myfile.CreateFile(descruption_file)
-	myfile.WriteStringtoFile(descruption_file,"Unnamed repository; edit this file 'description' to name the repository.")
+	myfile.WriteStringtoFile(descruption_file,"Unnamed repository; edit this file 'description' to name the repository.\n")
 	HEAD_file := repo_dir + "/HEAD"
 	myfile.CreateFile(HEAD_file)
-	myfile.WriteStringtoFile(HEAD_file,"ref: refs/heads/master")
+	myfile.WriteStringtoFile(HEAD_file,"ref: refs/heads/master\n")
 	return
 }
