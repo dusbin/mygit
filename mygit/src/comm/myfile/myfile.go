@@ -6,6 +6,9 @@ import(
 	"fmt"
 	//log "../../Sirupsen/logrus"
 )
+/*
+ * 向文件中写入字符串，覆盖写入。
+ */
 func WriteStringtoFile(path string,data string){
 	exist,err := PathExists(path)
 	if err != nil{
