@@ -19,6 +19,7 @@ func main() {
 		initrepo,
 		dus,
 		addfile,
+		usedb,
 	}
 	// 删除不影响使用
 	app.Before = func(context *cli.Context) error {//运行命令前初始化logrus日志模块

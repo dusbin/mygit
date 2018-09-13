@@ -22,6 +22,7 @@ var help = cli.Command{
 		fmt.Printf("    init\n")
 		fmt.Printf("	add")
 		fmt.Printf("    dus\n")
+		fmt.Printf("    usedb\n")
 		return nil
 	},
 }
@@ -46,6 +47,17 @@ var addfile = cli.Command{
 		}
 		file_path := context.Args().Get(0)
 		add_file(file_path)
+		return nil
+	},
+}
+var usedb = cli.Command{
+	Name: 	"usedb",
+	Usage: 	"mygit usedb .\n	mygit usedb ${file_path}",
+	Action: func(context *cli.Context) error{
+		//if len(context.Args()) != 1 {
+		//	return fmt.Errorf("${file_path} is error.\ne.g.:\nmygit usedb .\nmygit usedb ${file_path}\n")
+		//}
+		use_db()
 		return nil
 	},
 }
