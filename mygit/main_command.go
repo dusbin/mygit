@@ -25,8 +25,8 @@ var help = cli.Command{
 	},
 }
 var initrepo = cli.Command{
-	Name: 	"initrepo",
-	Usage: 	"mygit initrepo\n	mygit initrepo .\n	mygit initrepo repo_name",
+	Name: 	"init",
+	Usage: 	"mygit init\n	mygit init .\n	mygit init repo_name",
 	Action: func(context *cli.Context) error{
 		fmt.Printf("this is init\n")
 		return nil

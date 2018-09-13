@@ -4,7 +4,7 @@
 echo "begin..."
 ./mygit/mygit
 ./mygit/mygit help
-./mygit/mygit initrepo
+./mygit/mygit init
 ./mygit/mygit dus
 ./mygit/mygit undefine
 echo "end..."
