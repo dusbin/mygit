@@ -3,19 +3,37 @@ import(
 	"os"
 	"strings"
 	"path/filepath"
+	"fmt"
 	//log "../../Sirupsen/logrus"
 )
+func WriteStringtoFile(path string,data string){
+	exist,err := PathExists(path)
+	if err != nil{
+		fmt.Printf("path[%s] is not Exists\n",path)
+	}
+	if exist != true{
+		CreateFile(path)
+	}
+	file1,error := os.Create(path)
+	if error == nil{
+		//file1.Write([]byte(data))
+		file1.WriteString(data)
+		file1.Close()
+	}else{
+		fmt.Printf("Write error\n")
+	}
+}
 /*
  * 创建目录
  */
 func Mkdir(path string){
 	exist,err := PathExists(path)
 	if err != nil{
-		//log.Infof("dir[%s] failed",path);
+		fmt.Printf("dir[%s] failed\n",path);
 	}
 	if exist != true{
 		if err := os.MkdirAll(path,0600);err != nil{ //递归创建目录
-			//log.Errorf("Mkdir %s error.%v",path,err)
+			fmt.Printf("Mkdir %s error.%v\n",path,err)
 		}
 	}
 }
@@ -27,7 +45,7 @@ func CreateFile(path string){
 	if error != nil{ //文件不存在
 		_,error = os.Create(path)
 		if error != nil{
-			//log.Errorf("create file %s error.%v",path,error)
+			fmt.Printf("create file %s error.%v\n",path,error)
 		}
 	}
 

@@ -19,6 +19,7 @@ func init_repo(repo_name string){
 	myfile.Mkdir(info_path)
 	exclude_file := info_path + "/exclude"
 	myfile.CreateFile(exclude_file)
+	myfile.WriteStringtoFile(exclude_file,"# git ls-files --others --exclude-from=.git/info/exclude\n# Lines that start with '#' are comments.\n# For a project mostly in C, the following would be a good set of\n# exclude patterns (uncomment them if you want to use them):\n# *.[oa]\n# *~\n")
 	objects_path := repo_dir + "/objects"
 	myfile.Mkdir(objects_path)
 	info2_path := objects_path + "/info"
@@ -33,9 +34,12 @@ func init_repo(repo_name string){
 	myfile.Mkdir(tags_path)
 	config_file := repo_dir + "/config"
 	myfile.CreateFile(config_file)
+	myfile.WriteStringtoFile(config_file,"[core]\n	repositoryformatversion = 0\n	filemode = false\n	bare = false\n	logallrefupdates = true\n	symlinks = false\n	ignorecase = true")
 	descruption_file := repo_dir + "/description"
 	myfile.CreateFile(descruption_file)
+	myfile.WriteStringtoFile(descruption_file,"Unnamed repository; edit this file 'description' to name the repository.")
 	HEAD_file := repo_dir + "/HEAD"
 	myfile.CreateFile(HEAD_file)
+	myfile.WriteStringtoFile(HEAD_file,"ref: refs/heads/master")
 	return
 }
