@@ -19,20 +19,33 @@ var help = cli.Command{
 	Action: func(context *cli.Context) error{
 		fmt.Printf("mygit\n")
 		fmt.Printf("    help\n")
-		fmt.Printf("    initrepo\n")
+		fmt.Printf("    init\n")
+		fmt.Printf("	add")
 		fmt.Printf("    dus\n")
 		return nil
 	},
 }
 var initrepo = cli.Command{
 	Name: 	"init",
-	Usage: 	"mygit init .\n	mygit init repo_name",
+	Usage: 	"mygit init .\n	mygit init ${repo_name}",
 	Action: func(context *cli.Context) error{
 		if len(context.Args()) != 1 {
-			return fmt.Errorf("repo_name is error.\ne.g.:\nmygit init .\nmygit init repo_name\n")
+			return fmt.Errorf("${repo_name} is error.\ne.g.:\nmygit init .\nmygit init ${repo_name}\n")
 		}
 		repo_name := context.Args().Get(0)
 		init_repo(repo_name)
+		return nil
+	},
+}
+var addfile = cli.Command{
+	Name: 	"add",
+	Usage: 	"mygit add .\n	mygit add ${file_path}",
+	Action: func(context *cli.Context) error{
+		if len(context.Args()) != 1 {
+			return fmt.Errorf("${file_path} is error.\ne.g.:\nmygit add .\nmygit add ${file_path}\n")
+		}
+		file_path := context.Args().Get(0)
+		add_file(file_path)
 		return nil
 	},
 }

@@ -13,11 +13,12 @@ func main() {
 	app.Version = "ver:1.0.2" //不输入采用cli模块默认值作为版本号
 	app.Copyright = "2018-2018"
 	app.Author = "duzhengbin"
-	app.Email = "847379962@qq.com"
+	app.Email = "847379962@qq.com|duzhengbin123@gmail.com"
 	app.Commands = []cli.Command{//命令列表
 		help,
 		initrepo,
 		dus,
+		addfile,
 	}
 	// 删除不影响使用
 	app.Before = func(context *cli.Context) error {//运行命令前初始化logrus日志模块

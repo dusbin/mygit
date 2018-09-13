@@ -2,6 +2,9 @@ package main
 import(
 	myfile "comm/myfile"
 )
+/*
+ * 初始化创建仓库目录主入口
+ */
 func init_repo(repo_name string){
 	root_path := myfile.GetCurrentPath()
 	repo_dir :=  root_path
