@@ -1,11 +1,19 @@
 package main
 import(
 	"fmt"
+	mymd5 "comm/mymd5"
 )
 /*
  * 添加文件到仓库主入口
  */
 func add_file(file_path string){
 	fmt.Printf("file_path : [%s]\n",file_path)
+	file_path = "mygit/mygit"
+	md5Value,err := mymd5.Md5SumFile(file_path)
+	if err != nil{
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Printf("%x %s \n",md5Value,file_path)
 	return
 }
