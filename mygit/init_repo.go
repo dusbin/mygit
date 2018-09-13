@@ -1,7 +1,5 @@
 package main
 import(
-	"os"
-	log "Sirupsen/logrus"
 	myfile "comm/myfile"
 )
 func init_repo(repo_name string){
@@ -12,24 +10,32 @@ func init_repo(repo_name string){
 	}else{
 		repo_dir = root_path
 	}
-	exist,err := myfile.PathExists(repo_dir)
-	if err != nil{
-		log.Infof("dir[%s] failed",repo_dir);
-	}
-	if exist != true{
-		if err := os.Mkdir(repo_dir,0600);err != nil{
-			log.Errorf("Mkdir %s error.%v",repo_dir,err)
-		}
-	}
+	myfile.Mkdir(repo_dir)
 	repo_dir = repo_dir + ".git"
-	exist,err = myfile.PathExists(repo_dir)
-	if err != nil{
-		log.Infof("dir[%s] failed",repo_dir);
-	}
-	if exist != true{
-		if err := os.Mkdir(repo_dir,0600);err != nil{
-			log.Errorf("Mkdir %s error.%v",repo_dir,err)
-		}
-	}
+	myfile.Mkdir(repo_dir)
+	hooks_path := repo_dir + "/hooks"
+	myfile.Mkdir(hooks_path)
+	info_path := repo_dir + "/info"
+	myfile.Mkdir(info_path)
+	exclude_file := info_path + "/exclude"
+	myfile.CreateFile(exclude_file)
+	objects_path := repo_dir + "/objects"
+	myfile.Mkdir(objects_path)
+	info2_path := objects_path + "/info"
+	myfile.Mkdir(info2_path)
+	pack_path := objects_path + "/pack"
+	myfile.Mkdir(pack_path)
+	refs_path := repo_dir + "/refs"
+	myfile.Mkdir(refs_path)
+	heads_path := refs_path + "/heads"
+	myfile.Mkdir(heads_path)
+	tags_path := refs_path + "/tags"
+	myfile.Mkdir(tags_path)
+	config_file := repo_dir + "/config"
+	myfile.CreateFile(config_file)
+	descruption_file := repo_dir + "/description"
+	myfile.CreateFile(descruption_file)
+	HEAD_file := repo_dir + "/HEAD"
+	myfile.CreateFile(HEAD_file)
 	return
 }
