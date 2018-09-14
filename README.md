@@ -1,6 +1,6 @@
 # mygit 
 这是一个自己练习项目，使用go语言实现学习git源码过程中学到的知识，用另一种方式重写一个简单的git
-#开发环境
+# 开发环境
 	1.ubuntu 14.04.1
 		$uname -a
 		Linux ubuntu 3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
