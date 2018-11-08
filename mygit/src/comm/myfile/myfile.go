@@ -7,6 +7,19 @@ import(
 	"io/ioutil"
 	//log "../../Sirupsen/logrus"
 )
+func GetParentDir(currentDir string)(path string){
+	i := strings.LastIndex(currentDir,"/") //截取最后一个/作为路径
+	path = string(currentDir[0:i+1])
+	return path
+}
+//目录存在，true 不存在false
+func IsDirExist(path string)(flag bool){
+	_,err:=ioutil.ReadDir(path)
+	if err != nil{
+		return false
+	}
+	return true
+}
 //获取指定目录下所有文件
 func GetAllFileFromPath(dirpath string)(files []string,err error){
 	files,dirs,_:=getFilesAndDirs(dirpath)

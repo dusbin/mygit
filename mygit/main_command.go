@@ -4,6 +4,7 @@ import (
 	//log "Sirupsen/logrus"
 	cli "urfave/cli"
 	myfile "comm/myfile"
+	myenv "comm/myenv"
 	"os"
 )
 //初始化命令定义，定义了init的具体操作，此操作为内部方法，禁止外部调用
@@ -54,18 +55,24 @@ var addfile = cli.Command{
 			mygit /opt/ #添加目录
 			也可以传入多个目录作为多参数。
 		 */
+		RepoRoot,_ := myenv.GetRepoRoot()
+		if RepoRoot == ""{
+			fmt.Println("No Git Repo in this path[",myfile.GetCurrentPath(),"]")
+			fmt.Println("Please Create A New Repo or Choose Another.")
+			return nil
+		}
 		count :=0
 		for _,file_path:= range os.Args[2:]{//mygit add filename1 filename2 ....
 			f,_:=os.Stat(file_path)
 			if f.IsDir(){
 				files,_:=myfile.GetAllFileFromPath(file_path)//自己写的针对文件处理的包，该方法为获取指定目录下所有的文件
 				for _,file:=range files{
-					add_file(file)
+					add_file(file,RepoRoot)
 					count++
 				}
 				continue
 			}
-			add_file(file_path)
+			add_file(file_path,RepoRoot)
 			count++
 		}
 		fmt.Println("you add files(",count,")")

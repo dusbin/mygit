@@ -1,1 +1,1 @@
-echo "begin...";export GOPATH=`pwd`/mygit;cd mygit/;go build .;echo "end...";
+echo "begin...";export GOPATH=`pwd`/mygit;cd mygit/;go build .;echo "end...";ls -l;cp mygit /bin/;
