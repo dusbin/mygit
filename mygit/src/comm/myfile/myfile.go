@@ -4,8 +4,63 @@ import(
 	"strings"
 	"path/filepath"
 	"fmt"
+	"io/ioutil"
 	//log "../../Sirupsen/logrus"
 )
+//获取指定目录下所有文件
+func GetAllFileFromPath(dirpath string)(files []string,err error){
+	files,dirs,_:=getFilesAndDirs(dirpath)
+	for _,table:=range dirs{
+		temp,_,_:=getFilesAndDirs(table)
+		for _,temp1 := range temp{
+			files = append(files,temp1)
+		}
+		xfiles,_:=getAllFiles(dirpath)
+		for _,file:= range xfiles{
+			files = append(files,file)
+			//fmt.Println("file:",file)
+		}
+	}
+	return files,nil
+}
+func getAllFiles(dirpath string) (files []string,err error){
+	var dirs []string
+	dir,err:=ioutil.ReadDir(dirpath)
+	if err != nil{
+		return nil,err
+	}
+	
+	for _,fi:=range dir{
+		if fi.IsDir(){
+			dirs = append(dirs,dirpath+"/"+fi.Name())
+			getAllFiles(dirpath+"/"+fi.Name())
+		}else{
+			files = append(files,dirpath+"/"+fi.Name())
+		}
+	}
+	for _,table := range dirs{
+		temp,_:=getAllFiles(table)
+		for _,temp1:=range temp{
+			files = append(files,temp1)
+		}
+	}
+	return files,nil
+}
+func getFilesAndDirs(dirpath string)(files []string,dirs []string,err error){
+	dir,err := ioutil.ReadDir(dirpath)
+	if err != nil{
+		return nil,nil,err
+	}
+	for _,fi:=range dir{
+		if fi.IsDir(){//目录的处理，递归
+			dirs = append(dirs,dirpath+"/"+fi.Name())
+			getFilesAndDirs(dirpath+"/"+fi.Name())
+		}else{//处理文件
+			files = append(files,dirpath+"/"+fi.Name())
+		}
+	}
+	return files,dirs,nil
+}
 /*
  * 向文件中写入字符串，覆盖写入。
  */

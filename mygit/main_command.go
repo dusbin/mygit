@@ -3,6 +3,8 @@ import (
 	"fmt"
 	//log "Sirupsen/logrus"
 	cli "urfave/cli"
+	myfile "comm/myfile"
+	"os"
 )
 //初始化命令定义，定义了init的具体操作，此操作为内部方法，禁止外部调用
 var dus = cli.Command{
@@ -42,11 +44,31 @@ var addfile = cli.Command{
 	Name: 	"add",
 	Usage: 	"mygit add .\n	mygit add ${file_path}",
 	Action: func(context *cli.Context) error{
-		if len(context.Args()) != 1 {
+		if len(context.Args()) < 1 {
 			return fmt.Errorf("${file_path} is error.\ne.g.:\nmygit add .\nmygit add ${file_path}\n")
 		}
-		file_path := context.Args().Get(0)
-		add_file(file_path)
+		/**
+			可以使用以下命令进行添加
+			mygit add . #添加当前目录
+			mygit /bin/c* #添加*匹配文件
+			mygit /opt/ #添加目录
+			也可以传入多个目录作为多参数。
+		 */
+		count :=0
+		for _,file_path:= range os.Args[2:]{//mygit add filename1 filename2 ....
+			f,_:=os.Stat(file_path)
+			if f.IsDir(){
+				files,_:=myfile.GetAllFileFromPath(file_path)//自己写的针对文件处理的包，该方法为获取指定目录下所有的文件
+				for _,file:=range files{
+					add_file(file)
+					count++
+				}
+				continue
+			}
+			add_file(file_path)
+			count++
+		}
+		fmt.Println("you add files(",count,")")
 		return nil
 	},
 }

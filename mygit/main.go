@@ -28,7 +28,7 @@ func main() {
 		log.SetOutput(os.Stdout)//输出os.Stdout的信息
 		return nil
 	}
-	fmt.Printf("main before Run os.Args = %s\n",os.Args) //os.Args 输入的命令./mydocker run -ti /bin/sh
+	//fmt.Printf("main before Run os.Args = %s\n",os.Args) //os.Args 输入的命令./mydocker run -ti /bin/sh
 	if err := app.Run(os.Args); err != nil {//Run执行
 		fmt.Printf("Run err\n")
 		log.Fatal(err)//Run执行失败会弹出错误信息
