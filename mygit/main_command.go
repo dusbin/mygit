@@ -63,11 +63,15 @@ var addfile = cli.Command{
 		}
 		count :=0
 		for _,file_path:= range os.Args[2:]{//mygit add filename1 filename2 ....
-			f,_:=os.Stat(file_path)
+			f,err:=os.Stat(file_path)
+			if err != nil { //用户输入的文件不存在
+				continue
+			}
 			if f.IsDir(){
 				files,_:=myfile.GetAllFileFromPath(file_path)//自己写的针对文件处理的包，该方法为获取指定目录下所有的文件
 				for _,file:=range files{
 					add_file(file,RepoRoot)
+					fmt.Println("file",file)
 					count++
 				}
 				continue
@@ -83,9 +87,11 @@ var usedb = cli.Command{
 	Name: 	"usedb",
 	Usage: 	"mygit usedb .\n	mygit usedb ${file_path}",
 	Action: func(context *cli.Context) error{
-		//if len(context.Args()) != 1 {
-		//	return fmt.Errorf("${file_path} is error.\ne.g.:\nmygit usedb .\nmygit usedb ${file_path}\n")
-		//}
+		/*
+		if len(context.Args()) != 1 {
+			return fmt.Errorf("${file_path} is error.\ne.g.:\nmygit usedb .\nmygit usedb ${file_path}\n")
+		}
+		*/
 		use_db()
 		return nil
 	},

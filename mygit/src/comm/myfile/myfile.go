@@ -28,11 +28,13 @@ func GetAllFileFromPath(dirpath string)(files []string,err error){
 		for _,temp1 := range temp{
 			files = append(files,temp1)
 		}
+		/*
 		xfiles,_:=getAllFiles(dirpath)
 		for _,file:= range xfiles{
 			files = append(files,file)
 			//fmt.Println("file:",file)
 		}
+		*/
 	}
 	return files,nil
 }
@@ -75,6 +77,40 @@ func getFilesAndDirs(dirpath string)(files []string,dirs []string,err error){
 	return files,dirs,nil
 }
 /*
+ * 字符串包含的匹配
+ */
+func StrStr(haystack string, needle string) int {
+    index := -1
+    var i, j, k int
+    if len(needle) == 0 {
+        index = 0
+    }
+    for i = 0; i < len(haystack); i++ {
+        for j, k = 0, i; j < len(needle) && k < len(haystack); j, k = j+1, k+1 {
+            if needle[j] != haystack[k] {
+                //不匹配，退出循环
+                break
+            }
+        }
+        if j == len(needle) {
+            //匹配完成，退出循环
+            index = i
+            break
+        }
+    }
+    return index
+}
+/*
+ * 追加添加
+ */
+func AppendStringToFile(path string,data string){
+	fd,_:=os.OpenFile(path,os.O_RDWR|os.O_CREATE|os.O_APPEND,0644)
+	defer fd.Close()
+	buf:=[]byte(data)
+	fd.Write(buf)
+	return
+}
+/*
  * 向文件中写入字符串，覆盖写入。
  */
 func WriteStringtoFile(path string,data string){
@@ -86,10 +122,10 @@ func WriteStringtoFile(path string,data string){
 		CreateFile(path)
 	}
 	file1,error := os.Create(path)
+	defer file1.Close() //该方法结束时调用，和打开成对出现，防止在分支中忘记close
 	if error == nil{
 		//file1.Write([]byte(data))
 		file1.WriteString(data)
-		file1.Close()
 	}else{
 		fmt.Printf("Write error\n")
 	}
